@@ -1,0 +1,36 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[  ]
+_global_script_class_icons={
+
+}
+
+[application]
+
+config/name="Space Game"
+run/main_scene="res://src/main/MainScene.tscn"
+config/icon="res://assets/icon.png"
+
+[autoload]
+
+Server="*res://src/network/Server.tscn"
+Client="*res://src/network/Client.tscn"
+
+[debug]
+
+gdscript/warnings/unassigned_variable=false
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/unused_signal=false
+
+[rendering]
+
+environment/default_environment="res://src/default_env.tres"

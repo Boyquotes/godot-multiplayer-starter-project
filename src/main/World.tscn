@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/main_theme.tres" type="Theme" id=1]
+[ext_resource path="res://src/ui/PlayerList.gd" type="Script" id=2]
+
+[node name="World" type="Node2D"]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="PlayerList" type="Panel" parent="HUD"]
+margin_right = 212.0
+margin_bottom = 370.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LocalPlayer" type="Label" parent="HUD/PlayerList"]
+anchor_right = 1.0
+margin_top = 5.06371
+margin_bottom = 27.0637
+text = "Local Player Name"
+align = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RemotePlayerList" type="VBoxContainer" parent="HUD/PlayerList"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 13.0
+margin_top = 49.0
+margin_right = -12.0
+margin_bottom = -11.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
