@@ -16,12 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Space Game"
-run/main_scene="res://src/main/MainScene.tscn"
+run/main_scene="res://src/main/Start.tscn"
 config/icon="res://assets/icon.png"
 
 [autoload]
 
-Server="*res://src/network/Server.tscn"
+Server="*res://src/network/server/Server.tscn"
 Client="*res://src/network/Client.tscn"
 
 [debug]
@@ -30,6 +30,7 @@ gdscript/warnings/unassigned_variable=false
 gdscript/warnings/unused_variable=false
 gdscript/warnings/unused_argument=false
 gdscript/warnings/unused_signal=false
+gdscript/warnings/return_value_discarded=false
 
 [rendering]
 

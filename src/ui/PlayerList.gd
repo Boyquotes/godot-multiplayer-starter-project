@@ -6,12 +6,16 @@ func _ready():
 
 
 func _on_player_list_updated():
+	
 	for child in $RemotePlayerList.get_children():
 		child.queue_free()
+		
+	print(Client.players)
 	
-	for id in Client.players:
-		if id == Client.player_info.net_id: return
+	for a in Client.players.keys():
+		print(a)
+		if a == Client.player_info.net_id: continue
 		
 		var l = Label.new()
-		l.text = String(id) + " - " + Client.players[id].name
+		l.text = String(a) + " - " + Client.players[a].name
 		$RemotePlayerList.add_child(l)

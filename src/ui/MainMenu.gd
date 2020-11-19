@@ -7,11 +7,8 @@ func _ready():
 func set_player_info():
 	if !$Panel/NameInput.text.empty():
 		Client.player_info.name = $Panel/NameInput.text
-	else:
-		Client.player_info.name += get_tree().get_network_unique_id()
 	
 	Client.player_info.char_color = $Panel/ColorPickerButton.color
-	Client.player_info.net_id = get_tree().get_network_unique_id()
 
 
 func _on_ready_to_play():
@@ -24,6 +21,7 @@ func _on_join_fail():
 
 
 func _on_JoinBtn_pressed():
+	set_player_info()
 	Client.join_server("127.0.0.1", 1111)
 
 

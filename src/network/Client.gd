@@ -11,7 +11,7 @@ onready var Server = $"/root/Server"
 var player_info = {
 	name = "Player",                   # How this player will be shown within the GUI
 	net_id = 1,                        # By default everyone receives "server ID"
-	actor_path = "res://player.tscn",  # The class used to represent the player in the game world
+	actor_path = "res://src/main/player/Player.tscn",  # The class used to represent the player in the game world
 	char_color = Color(1, 1, 1)        # By default don't modulate the icon color
 }
 
@@ -19,8 +19,6 @@ var players = {}     # The clients player list
 
 
 func _ready():
-	get_tree().connect("network_peer_connected", self, "_on_player_connected")
-	get_tree().connect("network_peer_disconnected", self, "_on_player_disconnected")
 	get_tree().connect("connected_to_server", self, "_on_connected_to_server")
 	get_tree().connect("connection_failed", self, "_on_connection_failed")
 	get_tree().connect("server_disconnected", self, "_on_disconnected_from_server")
@@ -37,26 +35,20 @@ func join_server(ip, port):
 	get_tree().set_network_peer(net)
 
 
-func register_player(pinfo):
+remote func register_player(pinfo):
+	if (get_tree().is_network_server()): return
 	players[pinfo.net_id] = pinfo          # Create the player entry in the dictionary
 	emit_signal("player_list_updated")     # And notify that the player list has been changed
 
 
-
-# Everyone gets notified whenever a new client joins the server
-func _on_player_connected(id):
-	Server.on_player_connected(id)
-
-
-# Everyone gets notified whenever someone disconnects from the server
-func _on_player_disconnected(id):
-	Server.on_player_disconnected(id)
+remote func unregister_player(id):
+	if (get_tree().is_network_server()): return
+	players.erase(id)
+	emit_signal("player_list_updated")
 
 
 # Peer trying to connect to server is notified on success
 func _on_connected_to_server():
-	emit_signal("join_success")
-	
 	# Update the player_info dictionary with the obtained unique network ID
 	player_info.net_id = get_tree().get_network_unique_id()
 	
@@ -65,6 +57,8 @@ func _on_connected_to_server():
 	
 	# And register itself on the local list
 	register_player(player_info)
+	
+	emit_signal("join_success")
 
 
 # Peer trying to connect to server is notified on failure
@@ -75,4 +69,8 @@ func _on_connection_failed():
 
 # Peer is notified when disconnected from server
 func _on_disconnected_from_server():
-	pass
+	print("Disconnected from server")
+	# Clear the internal player list
+	players.clear()
+	# Reset the player info network ID
+	player_info.net_id = 1
