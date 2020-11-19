@@ -4,7 +4,8 @@ var _world : Node2D
 
 
 func _ready():
-	get_parent().connect("server_created", self, "_on_server_created")
+	Server.connect("server_created", self, "_on_server_created")
+	Server.connect("player_removed", self, "despawn_player")
 
 
 func _on_server_created():
@@ -34,3 +35,13 @@ remote func spawn_players(pinfo : Dictionary):
 		# In any case, spawn the new player in all players
 		_world.rpc_id(id, "spawn_player", pinfo, Server.players.size() - 1)
 		spawn_index += 1
+
+
+remote func despawn_player(pinfo):
+	for id in Server.players:
+		# Skip despawn player on the player we want to despawn
+		if id == pinfo.net_id:
+			continue
+		
+		# Replicate despawn into currently iterated player
+		_world.rpc_id(id, "despawn_player", pinfo)

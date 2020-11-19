@@ -2,6 +2,7 @@ extends Node
 
 signal server_created
 signal player_list_updated
+signal player_removed(pinfo)
 
 
 onready var World = $World
@@ -58,6 +59,7 @@ func unregister_player(id):
 	Client.rpc("unregister_player", id)
 	# And notify the list has been changed
 	emit_signal("player_list_updated")
+	emit_signal("player_removed", players[id])
 
 
 

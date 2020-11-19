@@ -47,6 +47,12 @@ remote func unregister_player(id):
 	emit_signal("player_list_updated")
 
 
+# Wrapper function for rset
+func rset_client(node : Node, property : String, value):
+	for id in Client.players:
+		node.rset_id(id, property, value)
+
+
 # Peer trying to connect to server is notified on success
 func _on_connected_to_server():
 	# Update the player_info dictionary with the obtained unique network ID

@@ -18,8 +18,18 @@ remote func spawn_player(pinfo, spawn_index = -1):
 	i.set_dominant_color(pinfo.char_color)
 	i.position = $SpawnPoints.get_node(str(spawn_index)).position
 	
-	if (pinfo.net_id != 1):
-		i.set_network_master(pinfo.net_id)
+	i.set_network_master(pinfo.net_id)
 	i.set_name(str(pinfo.net_id))
 	
 	add_child(i)
+
+
+remote func despawn_player(pinfo):
+	# Try to locate the player actor
+	var player_node = get_node(str(pinfo.net_id))
+	if (!player_node):
+		print("Cannoot remove invalid node from tree")
+		return
+	
+	# Mark the node for deletion
+	player_node.queue_free()
