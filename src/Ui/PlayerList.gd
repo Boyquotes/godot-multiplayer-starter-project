@@ -1,8 +1,14 @@
+# This script is used in World scene
 extends Control
 
 func _ready():
 	Client.connect("player_list_updated", self, "_on_player_list_updated")
 	$LocalPlayer.text = Client.player_info.name
+
+
+func _input(event):
+	if event.is_action_pressed("toggle_player_list"):
+		visible = !visible
 
 
 func _on_player_list_updated():

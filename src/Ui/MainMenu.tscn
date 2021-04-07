@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/icon.png" type="Texture" id=1]
 [ext_resource path="res://assets/main_theme.tres" type="Theme" id=2]
-[ext_resource path="res://src/ui/MainMenu.gd" type="Script" id=3]
+[ext_resource path="res://src/Ui/MainMenu.gd" type="Script" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.2, 0.227451, 0.309804, 1 )

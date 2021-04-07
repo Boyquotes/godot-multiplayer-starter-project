@@ -1,3 +1,4 @@
+# Handles server connection/disconnection and client data
 extends Node
 
 
@@ -6,18 +7,21 @@ signal join_fail                               # Failed to join a server
 signal player_list_updated                     # This peer playerlist has been updated
 
 
-onready var Server = $"/root/Server"
-
+# Store player info here. You can add as many entries as you like
+# Like score, level, XP etc.
 var player_info = {
-	name = "Player",                   # How this player will be shown within the GUI
-	net_id = 1,                        # By default everyone receives "server ID"
-	actor_path = "res://src/main/player/Player.tscn",  # The class used to represent the player in the game world
-	char_color = Color(1, 1, 1)        # By default don't modulate the icon color
+	name = "Player",
+	net_id = 1,                                        # The players ID over the network, it is unique
+	actor_path = "res://src/Main/Player/Player.tscn",  # The class used to represent the player in the game world
+	char_color = Color(1, 1, 1)
 }
 
-var players = {}     # The clients player list
+
+# The client keeps a list of all the other players
+var players = {}
 
 
+# Connect signals on start
 func _ready():
 	get_tree().connect("connected_to_server", self, "_on_connected_to_server")
 	get_tree().connect("connection_failed", self, "_on_connection_failed")
@@ -35,12 +39,15 @@ func join_server(ip, port):
 	get_tree().set_network_peer(net)
 
 
+# This is called by the server or other clients
+# Add a new player to the player_list dictionary
 remote func register_player(pinfo):
 	if (get_tree().is_network_server()): return
-	players[pinfo.net_id] = pinfo          # Create the player entry in the dictionary
-	emit_signal("player_list_updated")     # And notify that the player list has been changed
+	players[pinfo.net_id] = pinfo
+	emit_signal("player_list_updated")
 
 
+# Remove a player from the player_list dictionary
 remote func unregister_player(id):
 	if (get_tree().is_network_server()): return
 	players.erase(id)
@@ -48,9 +55,11 @@ remote func unregister_player(id):
 
 
 # Wrapper function for rset
+# The difference with rset is that it doesn't call the function on the server
 func rset_client(node : Node, property : String, value):
 	for id in Client.players:
-		node.rset_id(id, property, value)
+		if id != player_info.net_id:
+			node.rset_id(id, property, value)
 
 
 # Peer trying to connect to server is notified on success

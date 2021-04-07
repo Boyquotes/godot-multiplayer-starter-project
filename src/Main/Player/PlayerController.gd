@@ -1,9 +1,13 @@
+# PlayerController controls this node client-side and its puppet on the other clients
+# You can create a PlayerController script server-side for doing server checks or server logic
 extends KinematicBody2D
 
 export var speed = 300
 
 
 puppet var puppet_velocity = Vector2.ZERO
+puppet var p_position
+
 var velocity = Vector2.ZERO
 
 
@@ -25,10 +29,14 @@ func _master_process(delta):
 	
 	# Update velocity remotely
 	Client.rset_client(self, "puppet_velocity", velocity)
+	Client.rset_client(self, "p_position", global_position)
 
 
 func _puppet_process(delta):
 	velocity = puppet_velocity
+	if p_position:
+		global_position = p_position
+		p_position = null
 
 
 func set_dominant_color(color):

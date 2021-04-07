@@ -1,3 +1,4 @@
+# Client side World script
 extends Node2D
 
 

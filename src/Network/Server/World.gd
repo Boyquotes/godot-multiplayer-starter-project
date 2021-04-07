@@ -1,23 +1,12 @@
-extends Node
-
-var _world : Node2D
+# Server-side script for World.tscn
+# Pretty much every scene should inherit BaseServerScene to handle server side logic
+# The World scene is automatically instantiated server-side
+extends "res://src/Network/Server/BaseServerScene.gd"
 
 
 func _ready():
-	Server.connect("server_created", self, "_on_server_created")
-	Server.connect("player_removed", self, "despawn_player")
-
-
-func _on_server_created():
-	create_world()
-
-
-func create_world():
-	if (!get_tree().is_network_server()): return
-	
-	var w = load("res://src/main/World.tscn")
-	_world = w.instance()
-	get_tree().root.call_deferred("add_child", _world)
+	scene_path = "res://src/Main/World.tscn"
+	._ready()
 
 
 # Tell players to spawn a new player
