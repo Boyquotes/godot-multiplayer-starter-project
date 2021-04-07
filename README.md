@@ -33,7 +33,7 @@ The main scene of this project is **Start.tscn**. It launches either the server 
 
 If you want players to connect directly to one another, you can allow one player to host a server in-game by starting another instance of the game. For this to work, one of the players will have to configure **port forwarding** on their router, or use a **VPN** such as *Tunngle* or *LogMeIn Hamachi* (I prefer the latter).
 
-## How this works ? 
+## How does this work ? 
 
 There are two autoloads : `Server.tscn` and `Client.tscn`. Each client scene (like the `World.tscn` example) may have a server-side script that will handle server-specific logic. Every client-side **root scene** should have a server-side script that will instantiate the scene on the server, as the **scene tree must be the same on Client and Server**.
 
