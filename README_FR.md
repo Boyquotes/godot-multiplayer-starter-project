@@ -6,10 +6,11 @@
 
 ![Last commit](https://img.shields.io/github/last-commit/clement-or/godot-multiplayer-starter-project/master?style=for-the-badge)
 
-**Get the README in your language**
-*Or contribute by translating it !*
+**Lisez le README dans votre langue**
 
-:fr: [Français](./README_FR.md)
+*Ou proposez votre traduction !*
+
+:en: [English](./README.md)
 
 ## Résumé
 
