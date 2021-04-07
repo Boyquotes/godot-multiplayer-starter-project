@@ -1,13 +1,13 @@
 # Godot Multiplayer Starter Project
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)](https://www.gnu.org/licenses/gpl-3.0)
-![Last commit](https://img.shields.io/github/last-commit/clement-or/godot-multiplayer-starter-project/master?style=for-the-badge)
 ![Godot Version](https://img.shields.io/badge/Godot%20Version-3.2.3-blue?style=for-the-badge)
 ![Ask for help](https://img.shields.io/badge/Ask%20for-help%20!-blue?style=for-the-badge)
 
-**Get the README in your language**
+![Last commit](https://img.shields.io/github/last-commit/clement-or/godot-multiplayer-starter-project/master?style=for-the-badge)
 
-Or contribute by translating this README !
+**Get the README in your language**
+*Or contribute by translating it !*
 
 :fr: [Français](./README_FR.md)
 
